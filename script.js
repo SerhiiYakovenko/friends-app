@@ -1,28 +1,27 @@
-const API_URL = 'https://randomuser.me/api/?results=50';
+const API_URL = "https://randomuser.me/api/?results=50";
 let users = [];
-const ageDescending = document.querySelector('.age-desc');
-const ageAscending = document.querySelector('.age-asc');
-const nameDescending = document.querySelector('.name-desc');
-const nameAscending = document.querySelector('.name-asc');
-const main = document.getElementById('friends-list');
-const search = document.querySelector('.search');
-const usersCards = document.querySelector('.users');
+const ageDescending = document.querySelector(".age-desc");
+const ageAscending = document.querySelector(".age-asc");
+const nameDescending = document.querySelector(".name-desc");
+const nameAscending = document.querySelector(".name-asc");
+const main = document.getElementById("friends-list");
+const search = document.querySelector(".search");
+const usersCards = document.querySelector(".users");
 
 fetch(API_URL)
-  .then(response => {
+  .then((response) => {
     return response.json();
   })
   .then(function (json) {
     users = json.results;
     render(users);
   })
-  .catch(error => console.log(error));
+  .catch((error) => console.log(error));
 
 function createCards(users) {
   usersCards.innerHTML = "";
   users.forEach((item) => {
-    usersCards.innerHTML +=
-      `<div class="userCard">
+    usersCards.innerHTML += `<div class="userCard">
       <img src="${item.picture.large}" class="userimg">
       <div>
         <p class="nickname"><b>Nickname:</b>${item.login.username}</p>
@@ -67,8 +66,10 @@ function sortNameDesc(users) {
 function searchUser(text, users) {
   let searchResult = [];
   users.map((user) => {
-    if (user.name.first.toLowerCase().includes(text.toLowerCase()) ||
-      user.name.last.toLowerCase().includes(text.toLowerCase())) {
+    if (
+      user.name.first.toLowerCase().includes(text.toLowerCase()) ||
+      user.name.last.toLowerCase().includes(text.toLowerCase())
+    ) {
       searchResult.push(user);
     }
   });
@@ -77,9 +78,11 @@ function searchUser(text, users) {
 
 function render(users) {
   createCards(users);
-  ageAscending.addEventListener('click', () => sortAgeAsc(users));
-  ageDescending.addEventListener('click', () => sortAgeDesc(users));
-  nameAscending.addEventListener('click', () => sortNameAsc(users));
-  nameDescending.addEventListener('click', () => sortNameDesc(users));
-  search.addEventListener('input', (event) => searchUser(event.target.value, users));
+  ageAscending.addEventListener("click", () => sortAgeAsc(users));
+  ageDescending.addEventListener("click", () => sortAgeDesc(users));
+  nameAscending.addEventListener("click", () => sortNameAsc(users));
+  nameDescending.addEventListener("click", () => sortNameDesc(users));
+  search.addEventListener("input", (event) =>
+    searchUser(event.target.value, users)
+  );
 }
