@@ -46,11 +46,11 @@ function sortByAge(users, order) {
 function sortByName(users, order) {
   return users.sort((a, b) => {
     if (order.includes("asc")) {
-      a.name.first < b.name.first ? -1 : 1
+      return a.name.first < b.name.first ? -1 : 1
     } else {
-      b.name.first < a.name.first ? -1 : 1
+      return b.name.first < a.name.first ? -1 : 1
     }
-    0;
+    return 0;
   });
 }
 
